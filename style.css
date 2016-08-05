@@ -1,0 +1,43 @@
+body {
+	font-size:14px;
+}
+
+a {
+	text-decoration: none;
+}
+
+p {
+	padding-bottom: 14px;
+	margin: 0;
+	line-height: 1.8;
+}
+
+.container {
+	width: 600px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.footer {
+	clear: both;
+	background-color: #D8D8D8
+}
+
+.menu {
+	font-size: 20px;
+	float: right;
+	width: 150px;
+}
+
+div.menu {
+	background:lime;
+	color:green;
+}
+
+h1 {
+	color: #333333; /* ffffff */
+	font-size:20px;;
+	letter-spacing: 0.25em;
+	padding-left: 36px;
+	height: 26px;
+}
