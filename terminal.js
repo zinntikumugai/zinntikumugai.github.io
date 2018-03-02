@@ -193,7 +193,7 @@ commands['status'] = function (cmd, command, term) {
                         str.push(`\t> Status | ${statusStr}`);
                         str.push(sp);
                         Object.keys(customUptimeRatio).forEach(key => {
-                            str.push(`\t>  Ratio |${(("     " + key).slice(-4))}[day]: ${('0000' + customUptimeRatio[key]).slice(-7)} %`);
+                            str.push(`\t> Ratio  |${(("     " + key).slice(-4))}[day]: ${('0000' + customUptimeRatio[key]).slice(-7)} %`);
                         });
                         str.push("");
                         term.echo(str.join('\n'));
