@@ -1,3 +1,6 @@
+* {
+    font-family: 'Source Code Pro', monospace;
+}
 body .shell {
     /*
     width: 570px;
