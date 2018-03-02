@@ -105,6 +105,7 @@ commands['status'] = function (cmd, command, term) {
                             }
                         })(monitor);
                         var statusStr = (monitor => {
+                            
                             var list = [
                                 {
                                     id: 0,
@@ -130,6 +131,10 @@ commands['status'] = function (cmd, command, term) {
                                     id: -1,
                                     color: "#FF0000",
                                     str: "Error"
+                                }, {
+                                    id: -2,
+                                    color: "#FF0000",
+                                    str: "STOP"
                                 }
                             ];
                             var str = "";
@@ -146,6 +151,16 @@ commands['status'] = function (cmd, command, term) {
                                 list.forEach(data => {
                                     if (-1 === data.id) {
                                         str = `[[b;${data.color};]${data.str}]`;
+                                        t = data.str;
+                                        size = str.length - data.str.length;
+                                    }
+                                });
+                            }
+                            if (data.running === false) {
+
+                                list.forEach(data => {
+                                    if (-2 === data.id) {
+                                        str = `[[bu;${data.color};]${data.str}]`;
                                         t = data.str;
                                         size = str.length - data.str.length;
                                     }

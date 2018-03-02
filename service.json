@@ -16,7 +16,7 @@
         "apikey": "m780002554-31f94aab24e7e19b6434444d"
     }, {
         "enable": true,
-        "running": true,
+        "running": false,
         "name": "人のプール 使ってないポート",
         "apikey": "m780069402-aee5d3a5b90510fad52ab56f"
     }
