@@ -2,7 +2,7 @@
     {
         "enable": true,
         "running": true,
-        "name": "人のプール",
+        "name": "人のプール Web",
         "apikey": "m780002548-781e10bd60cf2af2b3fdaee8"
     }, {
         "enable": true,
@@ -14,5 +14,10 @@
         "running": true,
         "name": "人のプール testnet",
         "apikey": "m780002554-31f94aab24e7e19b6434444d"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人のプール 使ってないポート",
+        "apikey": "m780069402-aee5d3a5b90510fad52ab56f"
     }
 ]

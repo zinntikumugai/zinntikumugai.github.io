@@ -30,7 +30,9 @@ var helpList = [];
 var commands = {};
 //progress <size> [time(s)]
 commands['progress'] = function (cmd, command, term) {
-    var i = 0, size = cmd.args[0], sec = (typeof cmd.args[1] !== 'undefined') ? cmd.args[1] : 10;
+    var i = 0,
+        size = (typeof cmd.args[0] === 'number' ) ? cmd.args[0] : 100,
+        sec = (typeof cmd.args[1] === 'number') ? cmd.args[1] : 10;
     prompt = term.get_prompt();
     string = progress(0, size);
     term.set_prompt(progress);
@@ -58,18 +60,137 @@ commands['test'] = function (cmd, command, term) {
     return commands['progress'](cmdt, cmdt.command, term)
 };
 commands['status'] = function (cmd, command, term) {
+    var custom_uptime_ratio = [1, 7, 30, 365]; //dont remove
     $.ajax({
         type: 'GET',
         url: "./service.json",
         success: (json) => {
             json.forEach((data) => {
-                
+                var name = data.name;
+                if(data.enable !== true) {
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api.uptimerobot.com/v2/getMonitors',
+                    data: {
+                        api_key: data.apikey,
+                        custom_uptime_ratios: custom_uptime_ratio.join('-'),
+                        all_time_uptime_ratio: 1,
+                        format: 'json'
+                    },
+                    success: (json) => {
+                        if (json.stat != "ok") {
+                            trem.echo(`[${name}]: ERROR`);
+                            return;
+                        }
+                        var monitor = json.monitors[0];
+                        var typeStr = (monitor => {
+                            if (monitor.type === 1) return "HTTP/HTTPS";
+                            else if (monitor.type === 2) return "Keyword";
+                            else if (monitor.type === 3) return "Ping";
+                            else if (monitor.type === 4) return "Port";
+                            else return "NULL";
+                        })(monitor);
+                        var subTypeStr = (monitor => {
+                            if (monitor.type !== 4) return null;
+                            else {
+                                if (monitor.sub_type === 1) return "HTTP";
+                                else if (monitor.sub_type === 2) return "HTTPS";
+                                else if (monitor.sub_type === 3) return "FTP";
+                                else if (monitor.sub_type === 4) return "SMTP";
+                                else if (monitor.sub_type === 5) return "POP3";
+                                else if (monitor.sub_type === 6) return "IMAP";
+                                else return monitor.port;
+                            }
+                        })(monitor);
+                        var statusStr = (monitor => {
+                            var list = [
+                                {
+                                    id: 0,
+                                    color: "#D2691E",
+                                    str: "Paused"
+                                }, {
+                                    id: 1,
+                                    color: "#D2691E",
+                                    str: "Not Checkd Yet"
+                                }, {
+                                    id: 2,
+                                    color: "#008000",
+                                    str: "Up"
+                                }, {
+                                    id: 8,
+                                    color: "#D2691E",
+                                    str: "Seems Down"
+                                }, {
+                                    id: 9,
+                                    color: "#FF0000",
+                                    str: "Down"
+                                }, {
+                                    id: -1,
+                                    color: "#FF0000",
+                                    str: "Error"
+                                }
+                            ];
+                            var str = "";
+                            var t = "";
+                            var size = 0;
+                            list.forEach(data => {
+                                if (monitor.status === data.id) {
+                                    str = `[[b;${data.color};]${data.str}]`;
+                                    t = data.str;
+                                    size = str.length - data.str.length;
+                                }
+                            });
+                            if(str === ""){
+                                list.forEach(data => {
+                                    if (-1 === data.id) {
+                                        str = `[[b;${data.color};]${data.str}]`;
+                                        t = data.str;
+                                        size = str.length - data.str.length;
+                                    }
+                                });
+                            }
+                            str = ((" ").repeat(20) + str).slice(-28);
+                            return str;
+                        })(monitor);
+                        var customUptimeRatio = (monitor => {
+                            var obj = {};
+                            var data = monitor.custom_uptime_ratio.split('-');
+                            custom_uptime_ratio.forEach((v, i, a) => {
+                                obj[v] = data[i];
+                            });
+                            return obj;
+                        })(monitor);
+                        var str = [];
+                        var sp = `\t> ------ | ${(('-').repeat(25))}`;
+                        var url = ( monitor => {
+                            var s = monitor.url;
+                            s = s.replace(/https?:\/\//,'');
+                            s = s.replace(/#.*$/,'');
+                            return s;
+                        })(monitor);
+                        
+                        str.push(`>[${name}]`);
+                        //str.push("");
+                        str.push(`\t> Type   | ${typeStr}${(subTypeStr !== null ? `(${subTypeStr})` : "")}`);
+                        str.push(sp);
+                        str.push(`\t> Status | ${statusStr}`);
+                        str.push(sp);
+                        Object.keys(customUptimeRatio).forEach(key => {
+                            str.push(`\t>  Ratio |${(("     " + key).slice(-4))}[day]: ${('0000' + customUptimeRatio[key]).slice(-7)} %`);
+                        });
+                        str.push("");
+                        term.echo(str.join('\n'));
+                    },
+                    error: () => {
+                        term.echo("Opps.. Missing Get Data.");
+                    }
+                })
             });
-            console.log(json);
-            term.echo(JSON.stringify(json));
         },
         error: ()=>{
-            
+            term.echo("Error Missing Data.");
         } 
     });
 };
