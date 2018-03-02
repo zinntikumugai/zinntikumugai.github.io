@@ -5,16 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>zinntikumugai's Service Status</title>
+    <link rel="stylesheet" href="https://unpkg.com/shell.js@1.0.5/dist/css/shell.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.11.4/css/jquery.terminal.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div>
-        <terminal>
-        </terminal>
+        <div class="shell ubuntu dark shadow">
+            <div class="status-bar">
+                <div class="buttons">
+                    <a href="javascript:;" class="close" title="Close">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <a href="javascript:;" class="minimize" title="Minimize">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="javascript:;" class="enlarge" title="Enlarge">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="title">status@Service: ~</div>
+            </div>
+            <div class="content"></div>
+        </div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- shell -->
+    <script src="https://rawgit.com/jcubic/leash/master/lib/wcwidth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.11.4/js/jquery.terminal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+    <script src="https://rawgit.com/inexorabletash/polyfill/master/keyboard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="./terminal.js"></script>
+    <!-- shell -->
 </body>
 </html>
