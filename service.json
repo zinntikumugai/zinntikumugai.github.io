@@ -7,12 +7,32 @@
     }, {
         "enable": true,
         "running": true,
-        "name": "人のプール mainnet",
+        "name": "人のプール Mainnet Mining",
         "apikey": "m780002549-81aa188749b4265b6090b58e"
     }, {
         "enable": true,
         "running": true,
-        "name": "人のプール testnet",
+        "name": "人のプール Testnet Mining",
         "apikey": "m780002554-31f94aab24e7e19b6434444d"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人のプール BitZenyd Mainnet",
+        "apikey": "m780062377-0477e3f5e7d20afe4994c7a4"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人のプール BitZenyd Tainnet",
+        "apikey": "m780062382-27eca134ca8e51b82a415e53"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人畜無害のブログ",
+        "apikey": "m779772512-a73a42c466a9506f1bf0cd21"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "BalanceStatusBadge",
+        "apikey": "m779934254-9ed5baba4830ebdbb7cb726b"
     }
 ]
