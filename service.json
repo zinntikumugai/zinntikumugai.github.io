@@ -1,0 +1,18 @@
+[
+    {
+        "enable": true,
+        "running": true,
+        "name": "人のプール Web",
+        "apikey": "m780002548-781e10bd60cf2af2b3fdaee8"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人のプール mainnet",
+        "apikey": "m780002549-81aa188749b4265b6090b58e"
+    }, {
+        "enable": true,
+        "running": true,
+        "name": "人のプール testnet",
+        "apikey": "m780002554-31f94aab24e7e19b6434444d"
+    }
+]
